@@ -73,7 +73,6 @@ public class CryptographyProjectDecryption
             }
             System.out.println();
         }
-        /*
         
         for(i=0;i<row;i++)
         {
@@ -82,23 +81,22 @@ public class CryptographyProjectDecryption
                 if(Character.isLetter(ciphertextRotor[i][j]) && ciphertextRotor[i][j] != ' ')
                 {
                     LetterInNumber cipherInNumber = new LetterInNumber(ciphertextRotor[i][j]);
-                    int cipherValue =  (cipherInNumber.getNumber() - i) % 26;       //(c-rowNum) mod 26
                     
+                    int cipherValue =  (cipherInNumber.getNumber() - i) % 26;       //(c-rowNum) mod 26
                     if(cipherValue < 0)
                     {
                         cipherValue = cipherValue + 26;
-                    }
-                    
+                    }    
                     if(cipherValue == 0)
                     {
                         cipherValue = 26;
                     }
-
                     LetterInNumber cipherInLetter = new LetterInNumber(cipherValue);
                     ciphertextRotor[i][j] = cipherInLetter.getLetter();
                 }
             }
         }
+    
         
         
         System.out.println();System.out.println();
@@ -115,15 +113,16 @@ public class CryptographyProjectDecryption
         
         String CipherTextToPlaintext = "";
         String generatePlaintext = "";
-        for(i=0;i<column;i++)
+        for(i=0;i<row;i++)
         {
-            for(j=0;j<row;j++)
+            for(j=0;j<column;j++)
             {
-                CipherTextToPlaintext = CipherTextToPlaintext + ciphertextRotor [j][i];
+                CipherTextToPlaintext = CipherTextToPlaintext + ciphertextRotor [i][j];
             }
+            CipherTextToPlaintext = CipherTextToPlaintext + ' ';
         }
         
-        System.out.println("Generate Plaintext is : " +CipherTextToPlaintext);
+        System.out.println("Generate Ciphertext is : " +CipherTextToPlaintext);
         
         
         for(i=0;i<CipherTextToPlaintext.length();i++)
@@ -131,7 +130,7 @@ public class CryptographyProjectDecryption
             if(Character.isLetter(CipherTextToPlaintext.charAt(i)) && CipherTextToPlaintext.charAt(i) != ' ')
             {
                 LetterInNumber letterInNumber = new LetterInNumber(CipherTextToPlaintext.charAt(i));
-                int cipherValue =  (letterInNumber.getNumber() - 3) % 26;       //(p+n) mod 26
+                int cipherValue =  (letterInNumber.getNumber() - 4) % 26;       //(p+n) mod 26
                 
                 if(cipherValue == 0)
                 {
@@ -153,7 +152,7 @@ public class CryptographyProjectDecryption
             }
         }
         System.out.println("\nGenerate CipherText is : " +generatePlaintext);
-        */
+        
 
     }    
 }
