@@ -16,9 +16,10 @@ public class CryptographyProjectDecryption
     public static void main(String[] args) 
     {
         //String cipherText = "EESMSIMODT PTQLLLJZR UH YGZPTH 12#@&";
-        
-        String cipherText = "EGIKMOQSUWYZABCD GIKMOQSUWYZZZZZ";
+        System.out.println("Padd the Z with '.' character");
+        String cipherText = "EGIKMOQSUWYZABCD GIKMOQSUWY.....";
         int lengthOfPlaintext = cipherText.length();
+        System.out.println("Input Ciphertext is "+cipherText);
         System.out.println("Length of plaintext is "+lengthOfPlaintext);
         LetterInNumber letterInNumberCheck = new LetterInNumber(cipherText.charAt(1));
         System.out.println("Character number conversion is "+letterInNumberCheck.getNumber());
@@ -96,7 +97,6 @@ public class CryptographyProjectDecryption
                 }
             }
         }
-    
         
         
         System.out.println();System.out.println();
@@ -124,12 +124,33 @@ public class CryptographyProjectDecryption
         
         System.out.println("Generate Ciphertext is : " +CipherTextToPlaintext);
         
-        
-        for(i=0;i<CipherTextToPlaintext.length();i++)
+        pointer = 0;
+        String exactPlaintext = "";
+        for(i=0;i<column;i++)
         {
-            if(Character.isLetter(CipherTextToPlaintext.charAt(i)) && CipherTextToPlaintext.charAt(i) != ' ')
+            for(j=0;j<row;j++)
             {
-                LetterInNumber letterInNumber = new LetterInNumber(CipherTextToPlaintext.charAt(i));
+                if(pointer != cipherText.length())
+                {
+                    if(ciphertextRotor[j][i] != '.')
+                    {
+                        exactPlaintext = exactPlaintext + ciphertextRotor[j][i];
+                        pointer++;
+                    }
+                }
+            }
+            //System.out.println(pointer);
+        }
+        
+        System.out.println("\nGenerate exactCipherext is : " +exactPlaintext);
+        System.out.println();
+        System.out.println("Assume our key is 4 ");
+        
+        for(i=0;i<exactPlaintext.length();i++)
+        {
+            if(Character.isLetter(exactPlaintext.charAt(i)) && exactPlaintext.charAt(i) != ' ')
+            {
+                LetterInNumber letterInNumber = new LetterInNumber(exactPlaintext.charAt(i));
                 int cipherValue =  (letterInNumber.getNumber() - 4) % 26;       //(p+n) mod 26
                 
                 if(cipherValue == 0)
@@ -146,12 +167,12 @@ public class CryptographyProjectDecryption
                 char cipherCharacter = numberInLetter.getLetter();
                 generatePlaintext = generatePlaintext + cipherCharacter;
             }
-            else if(CipherTextToPlaintext.charAt(i) != ' ' || Character.isWhitespace(CipherTextToPlaintext.charAt(i)))
+            else if(exactPlaintext.charAt(i) != ' ' || Character.isWhitespace(exactPlaintext.charAt(i)))
             {
-                generatePlaintext = generatePlaintext + CipherTextToPlaintext.charAt(i);
+                generatePlaintext = generatePlaintext + exactPlaintext.charAt(i);
             }
         }
-        System.out.println("\nGenerate CipherText is : " +generatePlaintext);
+        System.out.println("\nGenerate Final Plaintext is : " +generatePlaintext);
         
 
     }    
